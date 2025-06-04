@@ -37,4 +37,26 @@ List<String> novaLista = streamList.collect(toList());
 
 Se você reparar o fluxo que fizemos, primeiro filtramos, depois aplicamos uma função para cada elemento, depois reordenamos e por fim coletamos, dessa foram podemos entender a API Stream também como um fluxo de operações as quais podemos fazer sobre uma coleção, de forma paralela e que no fim podemos coletar uma nova coleção com os métodos utilizados, de certa forma podemos fazer uma analogia da API Stream com uma _Pipeline_.
 
+Neste exemplo abaixo, mostramos de forma prática como funciona a Stream API em Java para processar listas de objetos.
+
+## Passo a passo do método
+
+1. Buscamos todos os usuários do banco de dados e armazenamos em uma lista.
+2. Transformamos essa lista em uma stream, que permite manipulação funcional dos dados.
+3. Aplicamos um filtro para manter apenas os usuários com idade maior que 18 anos.
+4. Utilizamos o `map` para extrair apenas o nome de cada usuário que passou pelo filtro.
+5. Coletamos o resultado em uma nova lista do tipo `List<String>` contendo os nomes dos usuários filtrados.
+
+```java
+public List<String> listarNomesUsuarios() {
+    List<User> listaUsuarios = userRepository.findAll();
+
+    List<String> nomesUsuarios = listaUsuarios.stream()
+        .filter(u -> u.getIdade() > 18)  
+        .map(User::getName)               
+        .toList();                       
+
+    return nomesUsuarios;
+}
+```
 [Próximo](./11-LinkedList-vs-ArrayList.md) - List, ArrayList e LinkedList
